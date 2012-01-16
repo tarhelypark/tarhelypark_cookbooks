@@ -1,10 +1,14 @@
 main_version = node[:atop][:main_version]
 minor_version = node[:atop][:minor_version]
-arch = node[:kernel][:machine]
+if node[:kernel][:machine] =~ /x86_64/
+  arch = node[:kernel][:machine]
+else
+  arch = "i586"
+end
 source_link = node[:atop][:link] + "#{main_version}.tar.gz"
 rpm_link = node[:atop][:link] + "#{main_version}-#{minor_version}.#{arch}.rpm"
 
-case platform 
+case node[:platform] 
 when "ubuntu","debian"  
   package "libncurses5-dev"
   package "libncursesw5-dev"
