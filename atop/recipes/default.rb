@@ -43,5 +43,6 @@ when "redhat","centos","fedora"
     action :install
     source "/tmp/atop.rpm"
     provider Chef::Provider::Package::Rpm
+     not_if { File.exists?("/usr/bin/atop")}
   end    
 end
